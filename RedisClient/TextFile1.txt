@@ -1,0 +1,28 @@
+﻿        private void DisplayAwaiting(Task task, Label label)
+        {
+            label.Text = "";
+            ContentAlignment textAlign = label.TextAlign;
+            Font font = label.Font;
+            Padding padding = label.Padding;
+            label.TextAlign = ContentAlignment.MiddleCenter;
+            label.Font = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold);
+            label.Padding = new Padding(10);
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            timer.Interval = 10;
+            int count = 0;
+            timer.Tick += (object sender, EventArgs e) =>
+            {
+                if (task.IsCompleted)
+                {
+                    timer.Stop();
+                    label.TextAlign = textAlign;
+                    label.Padding = padding;
+                    label.Font = font;
+                }
+
+                label.Text = count.ToString();
+                count++;
+
+            };
+            timer.Start();
+        }
